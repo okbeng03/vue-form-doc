@@ -1,5 +1,5 @@
 # 快速上手
-本节通过一个简单的例子介绍如何快速上手。[Demo](/vue-form-doc/examples/basic.html)
+本节通过一个简单的例子介绍如何快速上手。[Demo](/examples/basic.html)
 
 ## 1. 首先引入 Vue、Vuex、lodash、jsonschema-form-vue
 ```bash

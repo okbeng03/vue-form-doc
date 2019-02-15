@@ -1,4 +1,4 @@
-# Vue Form
+# [Vue Form](https://github.com/okbeng03/vue-form)
 Vue Form 是一套基于 JSON Schema 使用 Vue.js 自动生成表单的库。
 
 ## 特性
