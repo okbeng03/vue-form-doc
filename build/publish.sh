@@ -1,4 +1,4 @@
-npm install && npm run example
+cnpm install && npm run example
 gitbook install && gitbook build
 
 # checkout to the gh-pages branch
