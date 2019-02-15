@@ -3,10 +3,17 @@
     :schema="schema"
     :model="model"
   >
+    <div class="form-group form-action">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" class="btn btn-primary" @click="submit">提交</button>
+      </div>
+    </div>
   </vue-form>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   data () {
     return {
@@ -40,6 +47,25 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState({
+      data: state => state.model,
+      valid: state => state.valid
+    }),
+  },
+  methods: {
+    submit () {
+      console.log(this.data)
+      this.validate()
+
+      if (this.valid) {
+        console.log('submit form !')
+      }
+    },
+    ...mapMutations([
+      'validate'
+    ])
   }
 }
 </script>

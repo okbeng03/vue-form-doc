@@ -4,11 +4,16 @@
     :definition="definition"
     :model="model"
   >
+    <div class="form-group form-action">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" class="btn btn-primary" @click="submit">提交</button>
+      </div>
+    </div>
   </vue-form>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -42,7 +47,7 @@ export default {
       ],
       model: {
         name: '王昌彬',
-        source: '1'
+        source: 'idcard'
       }
     }
   },
@@ -61,9 +66,27 @@ export default {
       ]
     })
   },
+  computed: {
+    ...mapState({
+      data: state => state.model,
+      valid: state => state.valid
+    }),
+  },
   methods: {
     ...mapMutations([
-      'setOptions'
+      'setOptions',
+      'validate'
+    ]),
+    submit () {
+      console.log(this.data)
+      this.validate()
+
+      if (this.valid) {
+        console.log('submit form !')
+      }
+    },
+    ...mapMutations([
+      'validate'
     ])
   }
 }
