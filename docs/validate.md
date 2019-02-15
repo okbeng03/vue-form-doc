@@ -13,9 +13,9 @@ Vue Form的校验是基于
 我们通过 store 暴露了 Ajv 实例，所以你可以很容易添加自定义校验规则
 
 * 通过[ajv.addFormat](https://www.npmjs.com/package/ajv#addformatstring-name-stringregexpfunctionobject-format---ajv) 添加自定义format规则
-[Demo](/vue-form-doc/examples/validate.html) [Code](https://github.com/okbeng03/vue-form-doc/tree/master/examples/validate.vue)
+[Demo](/examples/validate.html) [Code](https://github.com/okbeng03/tree/master/examples/validate.vue)
 * 通过[ajv.addKeyword](https://www.npmjs.com/package/ajv#addkeywordstring-keyword-object-definition---ajv) 添加自定义keyword
 
 ## 修改校验提示
 通过[ajv-errors](https://www.npmjs.com/package/ajv-errors)，我们可以很容易修改自定义校验错误提示
-[Demo](/vue-form-doc/examples/validate.html) [Code](https://github.com/okbeng03/vue-form-doc/tree/master/examples/validate.vue)
+[Demo](/examples/validate.html) [Code](https://github.com/okbeng03/tree/master/examples/validate.vue)

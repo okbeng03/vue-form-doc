@@ -15,7 +15,7 @@ image-upload | `config` | format | 基于[vue-picture-input](https://www.npmjs.c
 editor | `config` | - | 基于[@tinymce/tinymce-vue](https://www.npmjs.com/package/@tinymce/tinymce-vue)
 
 ### iamge-upload
-图片上传组件 [Demo](/vue-form-doc/examples/image-upload.html)、[Code](https://github.com/okbeng03/vue-form-doc/tree/master/examples/image-upload.vue)
+图片上传组件 [Demo](/examples/image-upload.html)、[Code](https://github.com/okbeng03/vue-form-doc/tree/master/examples/image-upload.vue)
 
 图片上传需要服务器支持，所以必须提供 `config.action`方法，处理用户上传的图片，并返回图片地址；如：
 ```javascript
@@ -34,7 +34,7 @@ editor | `config` | - | 基于[@tinymce/tinymce-vue](https://www.npmjs.com/packa
 ```
 
 ### editor
-富文本编辑组件 [Demo](/vue-form-doc/examples/editor.html)、[Code](https://github.com/okbeng03/vue-form-doc/tree/master/examples/editor.vue)
+富文本编辑组件 [Demo](/examples/editor.html)、[Code](https://github.com/okbeng03/vue-form-doc/tree/master/examples/editor.vue)
 
 基于[@tinymce/tinymce-vue](https://www.npmjs.com/package/@tinymce/tinymce-vue)，默认支持以下插件
 > 'lists', 'advlist', 'image', 'table', 'textcolor', 'colorpicker', 'codesample', 'contextmenu', 'link', 'fullscreen', 'help', 'preview', 'searchreplace', 'hr', 'wordcount', 'autosave'
