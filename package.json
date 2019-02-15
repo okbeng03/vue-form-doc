@@ -4,6 +4,7 @@
   "description": "Vue Form Document",
   "scripts": {
     "example": "webpack --config build/webpack.config.js --colors --progress --watch",
+    "build": "webpack --config build/webpack.config.js",
     "publish": "./build/publish.sh"
   },
   "repository": {
