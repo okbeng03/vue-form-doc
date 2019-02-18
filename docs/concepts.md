@@ -15,11 +15,11 @@ Vue Form 希望通过实际的表单数据模型
 
 所以我们基于业界标准规范，主要的数据模型包含以下三个：
 
-### [JSON schema](http://gitlab.alibaba-inc.com/river/spec/blob/master/JSON-Schema.md)
+### [JSON schema](http://json-schema.org/)
 > JSON Schema是Gary Court 向 IETF 提交的用于描述 JSON 数据结构的规范；
 > 其中包含配套工具可以满足 `表单数据描述` 和 `表单校验` 功能；同时一份通用描述可以统一 `前端 & 后端` 校验逻辑，保证体验一致性。
 
-更多 [JSON Schema](http://gitlab.alibaba-inc.com/river/spec/blob/master/JSON-Schema.md) 的描述、关键字定义等可以在此参考
+更多 [JSON Schema](http://json-schema.org/) 的描述、关键字定义等可以在此参考
 
 所以，JSON schema 正好满足要求：
 1. 描述了JSON数据类型，表单所需要的required、max、min等
