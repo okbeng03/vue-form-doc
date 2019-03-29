@@ -297,7 +297,90 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="&#x6269;&#x5C55;&#x81EA;&#x5B9A;&#x4E49;&#x7EC4;&#x4EF6;">&#x6269;&#x5C55;&#x81EA;&#x5B9A;&#x4E49;&#x7EC4;&#x4EF6;</h1>
+<blockquote>
+<p>&#x5982;&#x679C;&#x5185;&#x7F6E;&#x7EC4;&#x4EF6;&#x5E76;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x60A8;&#x7684;&#x8868;&#x5355;&#x9700;&#x6C42;&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x5C06;&#x4ECB;&#x7ECD;&#x5982;&#x4F55;&#x6269;&#x5C55;&#x81EA;&#x5B9A;&#x4E49;&#x7EC4;&#x4EF6;&#x3002;</p>
+</blockquote>
+<p><a href="../../examples/add-rule.html">Demo</a>&#x3001;<a href="https://github.com/okbeng03/vue-form-doc/tree/master/examples/add-rule.vue" target="_blank">Code</a></p>
+<h3 id="1-&#x521B;&#x5EFA;&#x7EC4;&#x4EF6;&#xFF0C;&#x590D;&#x7528;mixin">1. &#x521B;&#x5EFA;&#x7EC4;&#x4EF6;&#xFF0C;&#x590D;&#x7528;Mixin</h3>
+<pre><code class="lang-javascript">&lt;template&gt;
+  &lt;div class=&quot;checkbox&quot;&gt;
+    &lt;label style=&quot;float: left&quot;&gt;
+      &lt;input class=&quot;vue-form-input&quot; type=&quot;checkbox&quot; v-model.lazy=&quot;value&quot;
+      :disabled=&quot;definition.disabled&quot;
+      :name=&quot;name&quot;
+      :readonly=&quot;definition.readonly&quot;
+      :required=&quot;definition.required&quot;
+    /&gt;
+      {{ schema.title }}
+    &lt;/label&gt;
+    &lt;div v-show=&quot;!value&quot; class=&quot;alert alert-warning&quot; role=&quot;alert&quot; style=&quot;float: left;&quot;&gt;{{ definition.help }}&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
+&lt;script&gt;
+import { mixins } from &apos;jsonschema-form-vue&apos;
+
+export default {
+  mixins: [mixins.basicMixin]
+}
+&lt;/script&gt;
+</code></pre>
+<p><em>&#x5C31;&#x8DDF;&#x5199;&#x666E;&#x901A;&#x7EC4;&#x4EF6;&#x5DEE;&#x4E0D;&#x591A;</em></p>
+<h3 id="2-&#x5168;&#x5C40;&#x5F15;&#x7528;&#x7EC4;&#x4EF6;">2. &#x5168;&#x5C40;&#x5F15;&#x7528;&#x7EC4;&#x4EF6;</h3>
+<pre><code class="lang-javascript">Vue.component(<span class="hljs-string">&apos;test&apos;</span>, Test)
+</code></pre>
+<p>&#x6CE8;&#x610F;component name&#xFF0C;&#x6700;&#x540E;&#x7EC4;&#x4EF6;type&#x5FC5;&#x987B;&#x662F;&#x8FD9;&#x4E2A;&#x503C;</p>
+<h3 id="3-&#x6DFB;&#x52A0;&#x89C4;&#x5219;">3. &#x6DFB;&#x52A0;&#x89C4;&#x5219;</h3>
+<p>&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x89C4;&#x5219;</p>
+<h4 id="31-&#x53EA;&#x9700;&#x8981;definition&#x6269;&#x5C55;">3.1 &#x53EA;&#x9700;&#x8981;definition&#x6269;&#x5C55;</h4>
+<p><code>definition.type</code>&#x662F;&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x5B9A;&#x4E49;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x9700;&#x8981;&#x505A;&#x4EFB;&#x4F55;&#x4E8B;&#x60C5;&#xFF0C;&#x53EA;&#x8981;&#x4FEE;&#x6539;<code>definition.item.type = &apos;test&apos;</code>&#x5373;&#x53EF;</p>
+<h4 id="32-&#x8003;&#x8651;&#x590D;&#x7528;&#x6027;&#xFF0C;&#x901A;&#x8FC7;schema&#x89C4;&#x5219;&#xFF08;&#x5982;format&#xFF09;&#x6269;&#x5C55;">3.2 &#x8003;&#x8651;&#x590D;&#x7528;&#x6027;&#xFF0C;&#x901A;&#x8FC7;<code>schema&#x89C4;&#x5219;</code>&#xFF08;&#x5982;format&#xFF09;&#x6269;&#x5C55;</h4>
+<ol>
+<li>&#x6DFB;&#x52A0;&#x89C4;&#x5219;
+```javascript
+import VueForm from &apos;jsonschema-form-vue&apos;
+import { store } from &apos;jsonschema-form-vue&apos;</li>
+</ol>
+<p>Vue.use(Vuex)
+Vue.use(VueForm)</p>
+<p>const formStore = new Vuex.Store(store)
+const generator = formStore.state.generator</p>
+<p>// &#x6DFB;&#x52A0;&#x4E00;&#x6761;boolean&#x7C7B;&#x578B;&#x89C4;&#x5219;
+generator.addRule(&apos;boolean&apos;, function (def, schema) {
+  const type = schema.type</p>
+<p>  if (type === &apos;boolean&apos; &amp;&amp; schema.format === &apos;cancelTip&apos;) {
+    schema.default = true
+    def.type = &apos;cancel-tip&apos;
+  }
+})</p>
+<pre><code>
+&#x56E0;&#x4E3A;&#x6DFB;&#x52A0;&#x4E86;&#x4E00;&#x6761;format&#x89C4;&#x5219;&#xFF0C;&#x6240;&#x4EE5;&#x8981;&#x6DFB;&#x52A0;format&#x6821;&#x9A8C;
+```javascript
+// &#x6821;&#x9A8C;&#x5668;&#xFF0C;&#x662F;vm.created&#x65F6;&#x624D;&#x521B;&#x5EFA;&#x7684;
+mounted () {
+  this.ajv.addFormat(&apos;cancelTip&apos;, function (value) {
+    return true
+  })
+},
+</code></pre><h4 id="33-&#x7C7B;&#x4F3C;&#x5185;&#x7F6E;&#x7EC4;&#x4EF6;&#x4E00;&#x6837;&#x4F7F;&#x7528;">3.3 &#x7C7B;&#x4F3C;&#x5185;&#x7F6E;&#x7EC4;&#x4EF6;&#x4E00;&#x6837;&#x4F7F;&#x7528;</h4>
+<pre><code>const schema = {
+  ...
+  single: {
+    type: &apos;boolean&apos;,
+    title: &apos;&#x662F;&#x5426;&#x5355;&#x8EAB;&apos;,
+    format: &quot;cancelTip&quot; // &#x65B0;&#x589E;&#x89C4;&#x5219;
+  }
+}
+const definition = [
+  ...
+  {
+    key: &apos;&apos;,
+    title: &apos;&#x5F3A;&#x70C8;&#x7A0B;&#x5EA6;&apos;,
+    type: &apos;button-counter&apos;, // &#x65B0;&#x589E;&#x89C4;&#x5219;
+    description: &apos;&#x770B;&#x770B;&#x4F60;&#x6709;&#x591A;&#x671F;&#x5F85;&#xFF01;&apos;
+  }
+]
+</code></pre>
                                 
                                 </section>
                             
@@ -340,7 +423,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"组件开发","level":"1.8","depth":1,"next":{"title":"规划","level":"1.9","depth":1,"path":"docs/plan.md","ref":"docs/plan.md","articles":[]},"previous":{"title":"Demo","level":"1.7","depth":1,"path":"docs/demo.md","ref":"docs/demo.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/components/dev.md","mtime":"2019-02-15T08:33:29.478Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-02-18T03:09:30.839Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"组件开发","level":"1.8","depth":1,"next":{"title":"规划","level":"1.9","depth":1,"path":"docs/plan.md","ref":"docs/plan.md","articles":[]},"previous":{"title":"Demo","level":"1.7","depth":1,"path":"docs/demo.md","ref":"docs/demo.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/components/dev.md","mtime":"2019-03-29T05:47:40.853Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-29T05:50:40.952Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

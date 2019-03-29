@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 159);
+/******/ 	return __webpack_require__(__webpack_require__.s = 168);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -46580,7 +46580,10 @@ exports.f = {}.propertyIsEnumerable;
 /* 123 */,
 /* 124 */,
 /* 125 */,
-/* 126 */
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46602,6 +46605,7 @@ exports.f = {}.propertyIsEnumerable;
 //
 //
 //
+//
 
 
 
@@ -46609,46 +46613,83 @@ exports.f = {}.propertyIsEnumerable;
   data: function data() {
     return {
       schema: {
-        title: 'basic',
-        type: 'object',
+        $schema: "http://json-schema.org/draft-07/schema#",
+        type: "object",
+        title: "统一头部导航",
+        required: ["list"],
         properties: {
-          name: {
-            type: 'string',
-            title: '姓名'
-          },
-          sex: {
-            type: 'string',
-            title: '性别',
-            format: 'sex',
-            enum: ['0', '1'],
-            default: '0',
-            errorMessage: {
-              format: '请选择正确的性别！'
+          list: {
+            $id: "#/properties/list",
+            type: "array",
+            title: "导航列表",
+            items: {
+              $id: "#/properties/list/items",
+              type: "object",
+              title: "一级导航",
+              required: ["name", "key", "sub"],
+              properties: {
+                name: {
+                  $id: "#/properties/list/items/properties/name",
+                  type: "string",
+                  title: "名称"
+                },
+                url: {
+                  $id: "#/properties/list/items/properties/url",
+                  type: "string",
+                  title: "链接（有二级导航不填）"
+                },
+                key: {
+                  $id: "#/properties/list/items/properties/key",
+                  type: "string",
+                  title: "key"
+                },
+                sub: {
+                  $id: "#/properties/list/items/properties/sub",
+                  type: "array",
+                  title: "二级导航列表（没有就不填）",
+                  items: {
+                    $id: "#/properties/list/items/properties/sub/items",
+                    type: "object",
+                    title: "",
+                    required: ["name", "url", "className"],
+                    properties: {
+                      name: {
+                        $id: "#/properties/list/items/properties/sub/items/properties/name",
+                        type: "string",
+                        title: "名称"
+                      },
+                      url: {
+                        $id: "#/properties/list/items/properties/sub/items/properties/url",
+                        type: "string",
+                        title: "链接"
+                      },
+                      className: {
+                        $id: "#/properties/list/items/properties/sub/items/properties/className",
+                        type: "string",
+                        title: "icon className"
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-        },
-        required: ['name', 'sex']
+        }
       },
-      definition: ['name', {
-        key: 'sex',
-        options: [{
-          label: '男',
-          value: '0'
-        }, {
-          label: '女',
-          value: '1'
+      definition: [{
+        key: ["list"],
+        type: "array",
+        items: [{
+          key: ["list", "$index"],
+          type: "v-fieldset",
+          items: ["*"]
         }]
       }],
-      model: {
-        name: '王昌彬'
-      }
+      model: {}
     };
   },
 
   computed: __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])({
-    ajv: function ajv(state) {
-      return state.ajv;
-    },
     data: function data(state) {
       return state.model;
     },
@@ -46656,12 +46697,6 @@ exports.f = {}.propertyIsEnumerable;
       return state.valid;
     }
   })),
-  mounted: function mounted() {
-    this.ajv.addFormat('sex', function (value) {
-      return value === '0';
-    });
-  },
-
   methods: __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({
     submit: function submit() {
       console.log(this.data);
@@ -46670,14 +46705,125 @@ exports.f = {}.propertyIsEnumerable;
       if (this.valid) {
         console.log('submit form !');
       }
+    },
+    onSetModel: function onSetModel() {
+      this.setModel({
+        list: [{
+          name: "我的账户",
+          key: "my",
+          sub: [{
+            name: "我的信息",
+            url: "/userinfo/myInfo.html",
+            className: "tj-icon tj-icon-personal"
+          }, {
+            name: "我的订单",
+            url: "/userinfo/myOrder.html",
+            className: "tj-icon tj-icon-myorder"
+          }],
+          showbar: false
+        }, {
+          name: "增值服务",
+          key: "addon",
+          sub: [{
+            name: "预付费行李",
+            url: "http://www.tianjin-air.com/am-provider/reservation/baggage.html",
+            className: "tj-icon tj-icon-b-luggage-copy"
+          }, {
+            name: "机上餐食",
+            url: "http://www.tianjin-air.com/am-provider/reservation/products.html",
+            className: "tj-icon tj-icon-Foodorder"
+          }, {
+            name: "辅营订单",
+            url: "http://www.tianjin-air.com/am-provider/reservation/orderlist.html",
+            className: "tj-icon tj-icon-meals"
+          }],
+          showbar: false
+        }, {
+          name: "旅行须知",
+          key: "help",
+          sub: [{
+            name: "购票须知",
+            url: "/travelhelp/index.html?list=aboutBuyTicket",
+            className: "tj-icon tj-icon-Noticeticket"
+          }, {
+            name: "值机须知",
+            url: "/travelhelp/index.html?list=checkinCatalogue",
+            className: "tj-icon tj-icon-Notice2"
+          }, {
+            name: "特殊旅客出行提示",
+            url: "/travelhelp/index.html?list=specialGuest",
+            className: "tj-icon tj-icon-Specialpassenger"
+          }, {
+            name: "行李运输服务",
+            url: "/travelhelp/index.html?list=luggageTransport",
+            className: "tj-icon tj-icon-b-luggage-copy"
+          }, {
+            name: "旅客携带危险品规定",
+            url: "/travelhelp/index.html?list=dangGoodsTrans",
+            className: "tj-icon tj-icon-Dangerousgoods"
+          }],
+          showbar: false
+        }, {
+          name: "自助服务",
+          key: "self-service",
+          sub: [{
+            name: "网上值机",
+            url: "/selfservice/checkinQuery.html",
+            className: "tj-icon tj-icon-Onlinecheck-in-copy"
+          }, {
+            name: "航班动态",
+            url: "/selfservice/flightstatus.html",
+            className: "tj-icon tj-icon-dynamics"
+          }, {
+            name: "客票验真",
+            url: "http://www.travelsky.com/tsky/validate.jsp",
+            className: "tj-icon tj-icon-verificationticket",
+            target: "_blank"
+          }, {
+            name: "自助改期",
+            url: "/selfservice/irregularFlightChange.html",
+            className: "tj-icon tj-icon-changethedate"
+          }, {
+            name: "不正常航班证明",
+            url: "/selfservice/irregularFlightProve.html",
+            className: "tj-icon tj-icon-b-irregularflight-copy"
+          }, {
+            name: "电子发票开具",
+            url: "http://www.tianjin-air.com/am-bill/reservation/orderlist.html",
+            className: "tj-icon tj-icon-fapiaodengji-copy-copy"
+          }],
+          showbar: false
+        }, {
+          name: "优惠专区",
+          key: "discount",
+          sub: [{
+            name: "套票专区",
+            url: "/activity/20180504004.html",
+            className: "tj-icon tj-icon-tickets"
+          }, {
+            name: "优惠推荐",
+            url: "/activity/20180628001.html",
+            className: "tj-icon tj-icon-recommendation"
+          }, {
+            name: "积分商城",
+            url: "http://www.wepoints.com.cn/index.html",
+            className: "tj-icon tj-icon-Integralmall",
+            target: "_blank"
+          }],
+          showbar: false
+        }, {
+          name: "首  页",
+          key: "home",
+          url: "/",
+          sub: [],
+          showbar: false
+        }]
+      });
     }
-  }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])(['validate']))
+  }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])(['validate', 'setModel']))
 });
 
 /***/ }),
-/* 127 */,
-/* 128 */,
-/* 129 */,
 /* 130 */,
 /* 131 */,
 /* 132 */,
@@ -46707,7 +46853,16 @@ exports.f = {}.propertyIsEnumerable;
 /* 156 */,
 /* 157 */,
 /* 158 */,
-/* 159 */
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46717,7 +46872,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonschema_form_vue__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__validate_vue__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__set_model_vue__ = __webpack_require__(169);
 
 
 
@@ -46733,18 +46888,18 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app',
   store: new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store(__WEBPACK_IMPORTED_MODULE_3_jsonschema_form_vue__["c" /* store */]),
-  components: { App: __WEBPACK_IMPORTED_MODULE_4__validate_vue__["a" /* default */] },
+  components: { App: __WEBPACK_IMPORTED_MODULE_4__set_model_vue__["a" /* default */] },
   template: '<App ref="app"/>'
 });
 
 /***/ }),
-/* 160 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_script_index_0_validate_vue__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_script_index_0_set_model_vue__ = __webpack_require__(129);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_3_vue_loader_lib_template_compiler_index_id_data_v_09779ba4_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_template_index_0_validate_vue__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_3_vue_loader_lib_template_compiler_index_id_data_v_78461160_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_template_index_0_set_model_vue__ = __webpack_require__(170);
 var disposed = false
 var normalizeComponent = __webpack_require__(41)
 /* script */
@@ -46761,14 +46916,14 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_script_index_0_validate_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_3_vue_loader_lib_template_compiler_index_id_data_v_09779ba4_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_template_index_0_validate_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_script_index_0_set_model_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_3_vue_loader_lib_template_compiler_index_id_data_v_78461160_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_3_vue_loader_lib_selector_type_template_index_0_set_model_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "validate.vue"
+Component.options.__file = "set-model.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -46777,9 +46932,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-09779ba4", Component.options)
+    hotAPI.createRecord("data-v-78461160", Component.options)
   } else {
-    hotAPI.reload("data-v-09779ba4", Component.options)
+    hotAPI.reload("data-v-78461160", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -46790,7 +46945,7 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 161 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46818,6 +46973,12 @@ var render = function() {
               on: { click: _vm.submit }
             },
             [_vm._v("提交")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { attrs: { type: "button" }, on: { click: _vm.onSetModel } },
+            [_vm._v("设置值")]
           )
         ])
       ])
@@ -46831,10 +46992,10 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-09779ba4", esExports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-78461160", esExports)
   }
 }
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=validate.js.map
+//# sourceMappingURL=set-model.js.map
