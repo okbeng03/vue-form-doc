@@ -5,6 +5,7 @@ var root = __dirname
 module.exports = {
   context: path.resolve(root, '../examples'),
   entry: {
+    'add-rule': './add-rule.js',
     'array': './array.js',
     'array-root': './array-root.js',
     'async-options': './async-options.js',
@@ -16,7 +17,8 @@ module.exports = {
     'definition': './definition.js',
     'validate': './validate.js',
     'editor': './editor.js',
-    'image-upload': './image-upload.js'
+    'image-upload': './image-upload.js',
+    'set-model': './set-model.js'
   },
   devtool: "#source-map",
   resolve: {

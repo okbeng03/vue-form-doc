@@ -10,3 +10,4 @@
 * [array root](/examples/array-root.html)
 * [富文本编辑器](/examples/editor.html)
 * [图片上传](/examples/image-upload.html)
+* [扩展自定义组件](/examples/add-rule.html)
