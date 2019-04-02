@@ -22,7 +22,7 @@ export default {
         type: 'array',
         items: {
           type: 'object',
-          title: '',
+          title: '课程列表',
           properties: {
             name: {
               type: 'string',
@@ -51,16 +51,17 @@ export default {
   computed: {
     ...mapState({
       data: state => state.model,
-      valid: state => state.valid
+      valid: state => state.valid,
+      isRootArray: state => state.isRootArray
     }),
   },
   methods: {
     submit () {
-      console.log(this.data)
       this.validate()
 
       if (this.valid) {
-        console.log('submit form !')
+        const model = this.data.valueOf()
+        console.log('submit form !', model['silentList'])
       }
     },
     ...mapMutations([
