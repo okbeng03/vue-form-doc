@@ -12,3 +12,5 @@ inline | `items[].col`(bootstrap row、col) | 内联表单
 * [mixins/array.js](https://github.com/okbeng03/vue-form/blob/master/src/components/mixins/array.js)
 提供了array获取、设置值的功能；同时提供增加、删除元素的功能
 
+## 注意
+`schema.type = array`，当items少于等于4个时，构建器为了节省空间，会子集将`definition.type = 'inline'`，默认为「内联表单」模式，如果你这时需要的是一个`fieldset`，那么自定义下`definition`；例如
